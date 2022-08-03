@@ -63,132 +63,137 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           Expanded(
-            child: Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(18),
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      userInput,
-                      style: const TextStyle(fontSize: 18, color: Colors.white),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(18),
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    userInput,
+                    style: const TextStyle(fontSize: 18, color: Colors.white),
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.all(15),
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    answer,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(15),
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      answer,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
           Expanded(
-            // flex: 3,
-            child: Container(
-              child: GridView.builder(
-                itemCount: buttons.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4),
-                itemBuilder: (BuildContext context, int index) {
-                  // Clear Button
+            flex: 3,
+            child: GridView.builder(
+              itemCount: buttons.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 4),
+              itemBuilder: (BuildContext context, int index) {
+                // Clear Button
 
-                  if (index == 0) {
-                    return MyButton(
-                      Buttontapped: () {
-                        setState(() {
-                          userInput = '';
-                          answer = '0';
-                        });
-                      },
-                      buttonText: buttons[index],
-                      color: Colors.blue[50],
-                      textColor: Colors.black,
-                    );
-                  }
+                if (index == 0) {
+                  return MyButton(
+                    Buttontapped: () {
+                      setState(() {
+                        userInput = '';
+                        answer = '0';
+                      });
+                    },
+                    buttonText: buttons[index],
+                    color: Colors.blue[50],
+                    textColor: Colors.black,
+                  );
+                }
 
 // +/- button
-                  else if (index == 1) {
-                    return MyButton(
-                      buttonText: buttons[index],
-                      color: Colors.blue[50],
-                      textColor: Colors.black,
-                    );
-                  }
+                else if (index == 1) {
+                  return MyButton(
+                    buttonText: buttons[index],
+                    color: Colors.blue[50],
+                    textColor: Colors.black,
+                  );
+                }
 
 // % button
-                  else if (index == 2) {
-                    return MyButton(
-                      Buttontapped: () {
-                        setState(() {
-                          userInput += buttons[index];
-                        });
-                      },
-                      buttonText: buttons[index],
-                      color: Colors.blue[50],
-                      textColor: Colors.black,
-                    );
-                  }
+                else if (index == 2) {
+                  return MyButton(
+                    Buttontapped: () {
+                      setState(() {
+                        userInput += buttons[index];
+                      });
+                    },
+                    buttonText: buttons[index],
+                    color: Colors.blue[50],
+                    textColor: Colors.black,
+                  );
+                }
 // Delete Button
-                  else if (index == 3) {
-                    return MyButton(
-                      Buttontapped: () {
-                        setState(() {
-                          userInput.substring(0, userInput.length - 1);
-                        });
-                      },
-                      buttonText: buttons[index],
-                      color: Colors.blue[50],
-                      textColor: Colors.black,
-                    );
-                  }
+                else if (index == 3) {
+                  return MyButton(
+                    Buttontapped: () {
+                      setState(() {
+                        userInput =
+                            userInput.substring(0, userInput.length - 1);
+                      });
+                    },
+                    buttonText: buttons[index],
+                    color: Colors.blue[50],
+                    textColor: Colors.black,
+                  );
+                }
 
 // Equal_to button
-                  else if (index == 18) {
-                    return MyButton(
-                      Buttontapped: () {
-                        setState(() {
-                          equalPressd();
-                        });
-                      },
-                      buttonText: buttons[index],
-                      color: Colors.blue[50],
-                      textColor: Colors.black,
-                    );
-                  }
+                else if (index == 18) {
+                  return MyButton(
+                    Buttontapped: () {
+                      setState(() {
+                        equalPressd();
+                      });
+                    },
+                    buttonText: buttons[index],
+                    color: Colors.blue[50],
+                    textColor: Colors.black,
+                  );
+                }
 
-                  // other button
-                  else {
-                    return MyButton(
-                      Buttontapped: () {
-                        setState(() {
-                          userInput += buttons[index];
-                        });
-                      },
-                      buttonText: buttons[index],
-                      color: isOperator(buttons[index])
-                          ? Colors.blueAccent
-                          : Colors.white,
-                      textColor: isOperator(buttons[index])
-                          ? Colors.white
-                          : Colors.black,
-                    );
-                  }
-                },
-              ),
+                // other button
+                else {
+                  return MyButton(
+                    Buttontapped: () {
+                      setState(() {
+                        userInput += buttons[index];
+                      });
+                    },
+                    buttonText: buttons[index],
+                    color: isOperator(buttons[index])
+                        ? Colors.blueAccent
+                        : Colors.white,
+                    textColor: isOperator(buttons[index])
+                        ? Colors.white
+                        : Colors.black,
+                  );
+                }
+              },
             ),
           ),
         ],
       ),
     );
+  }
+
+  bool isOperator(String x) {
+    if (x == '/' || x == 'x' || x == '-' || x == '+' || x == '=') {
+      return true;
+    }
+
+    return false;
   }
 
   // function to calculate the input operation
@@ -202,12 +207,4 @@ class _HomePageState extends State<HomePage> {
     double eval = exp.evaluate(EvaluationType.REAL, cm);
     answer = eval.toString();
   }
-}
-
-bool isOperator(String x) {
-  if (x == '/' || x == 'x' || x == '-' || x == '+' || x == '=') {
-    return true;
-  }
-
-  return false;
 }
